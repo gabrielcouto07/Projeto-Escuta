@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Não envia o endereço da página para outros sites ao clicar em links -->
+    <meta name="referrer" content="no-referrer" />
+    <meta name="theme-color" content="#0e4c75" />
+    <meta
+      name="description"
+      content="Ouvidoria digital: denuncie bullying, assédio, discriminação ou irregularidades sem se identificar e acompanhe a resposta com um código secreto."
+    />
+    <link rel="icon" type="image/svg+xml" href="/icone.svg" />
+    <title>Escuta · Ouvidoria</title>
+    <script>
+      // Aplica o tema escolhido antes da primeira pintura, para a página não piscar
+      try {
+        var tema = sessionStorage.getItem('escuta-tema');
+        if (tema && tema !== 'auto') document.documentElement.dataset.tema = tema;
+      } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript>Este site precisa de JavaScript. Em perigo agora? Ligue 190.</noscript>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
