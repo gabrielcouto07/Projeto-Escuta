@@ -7,7 +7,7 @@ com um código secreto. A instituição presta contas num painel público.
 **ODS 16 · Paz, Justiça e Instituições Eficazes** (metas 16.1, 16.6 e 16.10)
 Trabalho A3 · Usabilidade, Desenvolvimento Web, Mobile e Jogos
 
-Site publicado: _(colar o link do Firebase Hosting aqui)_
+Site publicado: <https://gabrielcouto07.github.io/Projeto-Escuta/>
 
 ## Tecnologias
 
@@ -54,6 +54,21 @@ ouvidoria: `ouvidoria@escuta.dev` / `escuta123`.
 
 Dados de exemplo no projeto real (opcional, apaga denúncias existentes):
 `GOOGLE_APPLICATION_CREDENTIALS=chave.json node scripts/seed.mjs --real <projectId>`.
+
+### Publicar no GitHub Pages
+
+O workflow `.github/workflows/deploy.yml` faz o build a cada push na `main` e publica a pasta
+`dist` em `https://<usuario>.github.io/<repositorio>/`. O caminho base vem da variável
+`BASE_PATH` (o workflow usa o nome do repositório); no dev e no Firebase Hosting continua `/`.
+
+1. No GitHub, **Settings → Pages → Source**: escolha **GitHub Actions** (não "Deploy from a branch").
+2. Em **Settings → Secrets and variables → Actions**, crie os secrets `VITE_FIREBASE_API_KEY`,
+   `VITE_FIREBASE_AUTH_DOMAIN`, `VITE_FIREBASE_PROJECT_ID`, `VITE_FIREBASE_STORAGE_BUCKET`,
+   `VITE_FIREBASE_MESSAGING_SENDER_ID` e `VITE_FIREBASE_APP_ID` com os valores do app Web.
+   Opcionais: `VITE_RECAPTCHA_SITE_KEY` (secret) e `VITE_INSTITUICAO` (variable).
+   Sem os secrets o site abre, mas com o aviso de "não configurado".
+3. No console do Firebase, **Authentication → Settings → Authorized domains**, adicione
+   `<usuario>.github.io` para o login da ouvidoria funcionar.
 
 ## Testes
 

@@ -19,7 +19,7 @@ const GerenciarMudancas = lazy(() => import('./pages/ouvidoria/GerenciarMudancas
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
       <Suspense fallback={<p className="carregando">Carregando…</p>}>
         <Routes>
           <Route element={<LayoutPublico />}>

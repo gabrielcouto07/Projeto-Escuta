@@ -21,7 +21,7 @@ function baixarComprovante({ protocolo, codigo, recebidaEm, prazo }) {
     `Recebida em: ${formatarDataHora(recebidaEm)}`,
     `Resposta até: ${formatarData(prazo)}`,
     '',
-    `Acompanhe em: ${window.location.origin}/acompanhar`,
+    `Acompanhe em: ${window.location.origin}${import.meta.env.BASE_URL}acompanhar`,
     '',
     'ATENÇÃO: quem tiver este código pode ler a denúncia e a conversa.',
     'Guarde em lugar seguro e não compartilhe.',
