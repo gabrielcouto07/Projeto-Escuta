@@ -1,4 +1,3 @@
-// src/components/FaixaEmergencia.jsx
 // Sempre visível: este canal não substitui os serviços de emergência.
 // "topo": faixa fina no alto de todas as páginas. "destaque": caixa de alerta.
 import { EMERGENCIA } from '../constantes';

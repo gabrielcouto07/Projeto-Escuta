@@ -1,4 +1,3 @@
-// src/pages/ouvidoria/PainelOuvidoria.jsx
 // Tela 5: organizar a fila por urgência e prazo, para nenhuma denúncia
 // ficar sem resposta.
 import { useState } from 'react';
@@ -6,7 +5,7 @@ import { Link, useOutletContext } from 'react-router-dom';
 import StatusBadge from '../../components/StatusBadge';
 import { STATUS_FINAIS } from '../../constantes';
 import { useTitulo } from '../../hooks/useTitulo';
-import { diasAte, formatarData, paraMillis, UM_DIA } from '../../utils/datas';
+import { diasAte, formatarData, formatarDiaMes, paraMillis, UM_DIA } from '../../utils/datas';
 
 const FILTROS = [
   { valor: 'abertas', rotulo: 'Abertas' },
@@ -177,7 +176,7 @@ export default function PainelOuvidoria() {
                     {d.mensagemNova && <span className="tag-mensagem">Mensagem nova</span>}
                   </td>
                   <td>{d.categoria}</td>
-                  <td>{formatarData(d.criadoEm).slice(0, 5)}</td>
+                  <td>{formatarDiaMes(d.criadoEm)}</td>
                   <td>
                     <Prazo denuncia={d} />
                   </td>

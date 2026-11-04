@@ -1,4 +1,3 @@
-// src/utils/dadosPessoais.js
 // Procura no texto coisas que podem identificar quem denuncia.
 // Não bloqueia o envio: só avisa. Tudo roda no navegador, nada é enviado.
 const PADROES = [

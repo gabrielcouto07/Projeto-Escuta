@@ -1,7 +1,6 @@
-// src/hooks/useContagem.js
-// Anima um número de 0 até o valor final (efeito "contador").
+// Anima um número até o valor final (efeito "contador").
 // Quem pede menos movimento no sistema vê o número direto.
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const semMovimento = () =>
   typeof window !== 'undefined' &&
@@ -9,11 +8,17 @@ const semMovimento = () =>
 
 export function useContagem(alvo, duracao = 900) {
   const [atual, setAtual] = useState(0);
+  const ultimo = useRef(0);
 
   useEffect(() => {
     if (typeof alvo !== 'number' || !Number.isFinite(alvo)) return undefined;
+    const de = ultimo.current;
+    const mostrar = (valor) => {
+      ultimo.current = valor;
+      setAtual(valor);
+    };
     if (semMovimento()) {
-      setAtual(alvo);
+      mostrar(alvo);
       return undefined;
     }
     let quadro;
@@ -21,7 +26,7 @@ export function useContagem(alvo, duracao = 900) {
     function passo(agora) {
       const t = Math.min(1, (agora - inicio) / duracao);
       const suave = 1 - (1 - t) ** 3; // desacelera no fim
-      setAtual(Math.round(alvo * suave));
+      mostrar(Math.round(de + (alvo - de) * suave));
       if (t < 1) quadro = requestAnimationFrame(passo);
     }
     quadro = requestAnimationFrame(passo);

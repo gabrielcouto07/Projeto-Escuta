@@ -1,4 +1,3 @@
-// src/hooks/usePreferencias.jsx
 // Tema (claro/escuro) e "modo discreto" (aba com título e ícone neutros).
 // Guardados no sessionStorage: somem quando o navegador fecha, para não
 // deixar rastro de que a pessoa usou o site.

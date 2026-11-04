@@ -1,4 +1,3 @@
-// src/pages/ComoFunciona.jsx
 // Explica o canal, o ciclo de vida da denúncia e como o anonimato funciona.
 import { Link } from 'react-router-dom';
 import StatusBadge from '../components/StatusBadge';

@@ -1,4 +1,3 @@
-// src/components/CampoCodigo.jsx
 // Código de 16 caracteres digitado em 4 blocos de 4, como num cartão.
 // Avança sozinho, volta com Backspace e aceita colar o código inteiro.
 import { useRef } from 'react';
@@ -65,7 +64,6 @@ export default function CampoCodigo({ valor, aoMudar, oculto, invalido, idDescri
             ref={(el) => {
               campos.current[i] = el;
             }}
-            id={i === 0 ? 'codigo' : undefined}
             type={oculto ? 'password' : 'text'}
             inputMode="text"
             value={parte}

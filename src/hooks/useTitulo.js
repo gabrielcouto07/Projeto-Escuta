@@ -1,4 +1,3 @@
-// src/hooks/useTitulo.js
 import { useEffect } from 'react';
 import { usePreferencias } from './usePreferencias';
 

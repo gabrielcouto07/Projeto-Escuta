@@ -1,4 +1,3 @@
-// src/components/Conversa.jsx
 // Conversa anônima entre denunciante e ouvidoria (usada pelos dois lados).
 import { useEffect, useRef, useState } from 'react';
 import { LIMITES } from '../constantes';

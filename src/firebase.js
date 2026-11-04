@@ -1,4 +1,3 @@
-// src/firebase.js
 // Conecta o site ao projeto criado no console do Firebase.
 // As chaves ficam no arquivo .env.local (fora do GitHub).
 //
@@ -10,24 +9,26 @@ import { connectFirestoreEmulator, getFirestore } from 'firebase/firestore';
 
 export const usandoEmuladores = import.meta.env.VITE_USE_EMULATORS === 'true';
 
+// O .env.example vem com "cole-aqui" nos campos: conta como não preenchido
+const chave = (valor) => (valor && valor !== 'cole-aqui' ? valor : undefined);
+const projectId = chave(import.meta.env.VITE_FIREBASE_PROJECT_ID);
+
 const firebaseConfig =
-  usandoEmuladores && !import.meta.env.VITE_FIREBASE_PROJECT_ID
+  usandoEmuladores && !projectId
     ? // Projetos "demo-" funcionam só com os emuladores, sem conta no Google
       { apiKey: 'demo', projectId: 'demo-escuta', authDomain: 'demo-escuta.firebaseapp.com' }
     : {
-        apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-        authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-        projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-        storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-        messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-        appId: import.meta.env.VITE_FIREBASE_APP_ID,
+        apiKey: chave(import.meta.env.VITE_FIREBASE_API_KEY),
+        authDomain: chave(import.meta.env.VITE_FIREBASE_AUTH_DOMAIN),
+        projectId,
+        storageBucket: chave(import.meta.env.VITE_FIREBASE_STORAGE_BUCKET),
+        messagingSenderId: chave(import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID),
+        appId: chave(import.meta.env.VITE_FIREBASE_APP_ID),
       };
 
-export const firebaseConfigurado = Boolean(
-  firebaseConfig.projectId && firebaseConfig.projectId !== 'cole-aqui',
-);
+export const firebaseConfigurado = Boolean(firebaseConfig.projectId);
 
-// Sem configuração o site ainda abre e mostra um aviso (ver App.jsx),
+// Sem configuração o site ainda abre e mostra um aviso (ver LayoutPublico.jsx),
 // em vez de quebrar com tela branca.
 export const app = initializeApp(
   firebaseConfigurado ? firebaseConfig : { ...firebaseConfig, projectId: 'nao-configurado' },

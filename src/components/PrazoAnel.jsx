@@ -1,4 +1,3 @@
-// src/components/PrazoAnel.jsx
 // Anel que mostra quanto do prazo já passou e quantos dias faltam.
 import { STATUS_FINAIS } from '../constantes';
 import { diasAte, paraMillis, UM_DIA } from '../utils/datas';

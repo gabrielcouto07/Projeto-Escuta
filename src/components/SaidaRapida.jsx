@@ -1,4 +1,3 @@
-// src/components/SaidaRapida.jsx
 // Botão de saída rápida, comum em sites de apoio a vítimas: troca a página
 // por outra neutra na hora. Atalho: apertar Esc duas vezes seguidas.
 import { useEffect } from 'react';

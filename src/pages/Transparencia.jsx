@@ -1,4 +1,3 @@
-// src/pages/Transparencia.jsx
 // Tela 6: prestar contas à comunidade (metas 16.6 e 16.10) sem expor ninguém.
 // Lê só estatisticas/publico e mudancas. Nenhuma denúncia é lida aqui.
 import { useEffect, useState } from 'react';
@@ -10,9 +9,8 @@ import { useContagem } from '../hooks/useContagem';
 import { useEstatisticas } from '../hooks/useEstatisticas';
 import { useTitulo } from '../hooks/useTitulo';
 import { ouvirMudancas } from '../services/transparencia';
-import { formatarData } from '../utils/datas';
+import { formatarData, MESES, separarMes } from '../utils/datas';
 
-const MESES = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
 const MESES_LONGOS = [
   'janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho',
   'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro',
@@ -176,11 +174,6 @@ function ListaCategorias({ porCategoria, total }) {
   );
 }
 
-function rotuloMes(mes) {
-  const [ano, numero] = mes.split('-');
-  return { mes: MESES[Number(numero) - 1], ano };
-}
-
 export default function Transparencia() {
   useTitulo('Transparência');
   const { dados, carregando, erro } = useEstatisticas();
@@ -237,7 +230,7 @@ export default function Transparencia() {
           ) : (
             <ol className="mudancas">
               {mudancas.map((m) => {
-                const r = rotuloMes(m.mes);
+                const r = separarMes(m.mes);
                 return (
                   <li key={m.id}>
                     <time dateTime={m.mes}>

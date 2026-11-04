@@ -1,4 +1,3 @@
-// src/hooks/useOuvidor.js
 // Diz se quem está logado faz parte da ouvidoria.
 // Os ouvidores são cadastrados à mão no console, na coleção "ouvidores".
 import { useEffect, useState } from 'react';
@@ -31,28 +30,31 @@ export function useOuvidor() {
     erro: false,
   });
 
-  useEffect(
-    () =>
-      onAuthStateChanged(auth, async (usuario) => {
-        if (!usuario) {
-          setEstado({ carregando: false, usuario: null, ouvidor: null, erro: false });
-          return;
-        }
-        try {
-          const registro = await buscarRegistro(usuario.uid);
-          setEstado({
-            carregando: false,
-            usuario,
-            ouvidor: registro.exists() ? { uid: usuario.uid, ...registro.data() } : null,
-            erro: false,
-          });
-        } catch {
-          // Falha de conexão não é o mesmo que "não é ouvidor"
-          setEstado({ carregando: false, usuario, ouvidor: null, erro: true });
-        }
-      }),
-    [],
-  );
+  useEffect(() => {
+    let versao = 0;
+    return onAuthStateChanged(auth, async (usuario) => {
+      // Se a sessão mudar enquanto a leitura corre, o resultado antigo é descartado
+      const atual = (versao += 1);
+      if (!usuario) {
+        setEstado({ carregando: false, usuario: null, ouvidor: null, erro: false });
+        return;
+      }
+      try {
+        const registro = await buscarRegistro(usuario.uid);
+        if (atual !== versao) return;
+        setEstado({
+          carregando: false,
+          usuario,
+          ouvidor: registro.exists() ? { uid: usuario.uid, ...registro.data() } : null,
+          erro: false,
+        });
+      } catch {
+        // Falha de conexão não é o mesmo que "não é ouvidor"
+        if (atual !== versao) return;
+        setEstado({ carregando: false, usuario, ouvidor: null, erro: true });
+      }
+    });
+  }, []);
 
   return estado;
 }

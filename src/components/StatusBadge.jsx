@@ -1,4 +1,3 @@
-// src/components/StatusBadge.jsx
 import { STATUS } from '../constantes';
 
 export default function StatusBadge({ status }) {

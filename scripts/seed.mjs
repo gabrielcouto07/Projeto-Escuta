@@ -1,4 +1,3 @@
-// scripts/seed.mjs
 // Popula o banco com dados de teste realistas (entrega final).
 //
 // Emuladores (padrão):  npm run emuladores   e, em outro terminal,  npm run seed

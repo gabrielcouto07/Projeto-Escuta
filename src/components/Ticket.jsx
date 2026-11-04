@@ -1,11 +1,8 @@
-// src/components/Ticket.jsx
 // Comprovante em forma de canhoto: picote, carimbo de sigilo e código.
 // Usado no comprovante real e, como exemplo animado, na tela inicial.
 import { useEffect, useState } from 'react';
 import { formatarData, formatarDataHora } from '../utils/datas';
-import { formatarCodigo } from '../utils/seguranca';
-
-const ALFABETO = '23456789ABCDEFGHJKMNPQRSTUVWXYZ';
+import { ALFABETO, formatarCodigo } from '../utils/seguranca';
 
 // Efeito "sorteio": as letras giram e vão se fixando da esquerda para a direita
 function useCodigoEmbaralhado(codigo, ativo) {

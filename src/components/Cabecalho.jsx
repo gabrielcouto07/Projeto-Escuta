@@ -1,4 +1,3 @@
-// src/components/Cabecalho.jsx
 import { useEffect, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { INSTITUICAO } from '../config';

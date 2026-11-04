@@ -1,7 +1,7 @@
-// src/utils/datas.js
 // Datas chegam do Firestore como Timestamp, mas também podem ser Date
 // (envio local) ou null (serverTimestamp ainda pendente).
 export const UM_DIA = 1000 * 60 * 60 * 24;
+export const MESES = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
 
 export function paraDate(valor) {
   if (!valor) return null;
@@ -35,13 +35,24 @@ export function formatarDataHora(valor) {
   return `${data.toLocaleDateString('pt-BR')} às ${hora}`;
 }
 
+// 12/10
+export function formatarDiaMes(valor) {
+  const data = paraDate(valor);
+  return data ? data.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' }) : '—';
+}
+
 // 12/10 09:10
 export function formatarCurto(valor) {
   const data = paraDate(valor);
   if (!data) return 'agora';
-  const dia = data.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' });
   const hora = data.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
-  return `${dia} ${hora}`;
+  return `${formatarDiaMes(data)} ${hora}`;
+}
+
+// "2026-09" -> { mes: 'set', ano: '2026' }
+export function separarMes(valor) {
+  const [ano, numero] = valor.split('-');
+  return { mes: MESES[Number(numero) - 1], ano };
 }
 
 // Dias inteiros até a data (negativo = vencido)

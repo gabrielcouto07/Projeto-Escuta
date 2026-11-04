@@ -1,4 +1,3 @@
-// src/pages/ouvidoria/DetalheDenuncia.jsx
 // Uma denúncia vista pela ouvidoria: relato, histórico, conversa e ações.
 // A rota usa o protocolo, nunca o código secreto, para o código não aparecer
 // na barra de endereço nem no histórico do navegador da equipe.

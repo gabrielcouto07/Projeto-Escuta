@@ -1,4 +1,3 @@
-// src/pages/DenunciaEnviada.jsx
 // Tela 3: garantir que a pessoa guarde o código antes de sair da página.
 // O código chega pelo state do React Router (não pela URL) e é apagado do
 // histórico assim que a página abre: recarregar ou voltar não o mostra de novo.
@@ -7,6 +6,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { IconeAlerta, IconeBaixar, IconeCheck, IconeCopiar, IconeSeta } from '../components/Icones';
 import Ticket from '../components/Ticket';
 import { INSTITUICAO } from '../config';
+import { useAvisoAoSair } from '../hooks/useAvisoAoSair';
 import { useTitulo } from '../hooks/useTitulo';
 import { formatarData, formatarDataHora } from '../utils/datas';
 import { formatarCodigo } from '../utils/seguranca';
@@ -48,15 +48,8 @@ export default function DenunciaEnviada() {
     if (location.state) navigate(location.pathname, { replace: true, state: null });
   }, [location.state, location.pathname, navigate]);
 
-  // Pede confirmação ao fechar a aba se o código ainda não foi copiado nem salvo
-  useEffect(() => {
-    if (!comprovante || guardou) return undefined;
-    function aoSair(evento) {
-      evento.preventDefault();
-    }
-    window.addEventListener('beforeunload', aoSair);
-    return () => window.removeEventListener('beforeunload', aoSair);
-  }, [comprovante, guardou]);
+  // Enquanto o código não foi copiado nem salvo, fechar a aba pede confirmação
+  useAvisoAoSair(Boolean(comprovante) && !guardou);
 
   if (!comprovante) {
     return (

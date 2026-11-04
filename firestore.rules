@@ -1,4 +1,3 @@
-// firestore.rules
 // Publicar: npx firebase-tools deploy --only firestore:rules
 // (ou colar em Console do Firebase > Firestore Database > Regras > Publicar)
 //

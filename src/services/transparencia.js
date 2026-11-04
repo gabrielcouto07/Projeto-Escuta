@@ -1,4 +1,3 @@
-// src/services/transparencia.js
 // Painel público: só números e as mudanças que a ouvidoria publica.
 import {
   addDoc,

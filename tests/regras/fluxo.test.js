@@ -1,4 +1,3 @@
-// tests/regras/fluxo.test.js
 // Fluxo completo usando o código de verdade do site (src/services) contra os
 // emuladores: denúncia anônima → conversa → ouvidoria responde → painel público.
 // Rodar: npm run test:regras

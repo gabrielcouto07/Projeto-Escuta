@@ -1,4 +1,3 @@
-// src/components/Icones.jsx
 // Ícones em SVG embutido (sem biblioteca externa). Decorativos: aria-hidden.
 const base = {
   width: 18,

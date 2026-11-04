@@ -1,14 +1,13 @@
-// src/pages/Acompanhar.jsx
 // Tela 4: mostrar em que pé está a denúncia e conversar sem se identificar.
 // O código fica só na memória da página: não vai para a URL nem para o navegador.
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import Conversa from '../components/Conversa';
 import CampoCodigo from '../components/CampoCodigo';
+import Conversa from '../components/Conversa';
 import { IconeCadeado, IconeOlho, IconeSeta } from '../components/Icones';
+import LinhaDoTempo from '../components/LinhaDoTempo';
 import PrazoAnel from '../components/PrazoAnel';
 import StatusBadge from '../components/StatusBadge';
-import LinhaDoTempo from '../components/LinhaDoTempo';
 import { STATUS_FINAIS } from '../constantes';
 import { useTitulo } from '../hooks/useTitulo';
 import { enviarMensagem, ouvirDenuncia, ouvirMensagens } from '../services/denuncias';

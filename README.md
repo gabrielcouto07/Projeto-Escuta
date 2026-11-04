@@ -104,13 +104,16 @@ ouvidoria na conversa, reescreve o histórico ou prorroga o prazo duas vezes.
 
 ```
 src/
-  constantes.js            categorias, status, setores, prazos (iguais às regras)
+  config.js                nome da instituição (vem do .env.local)
+  constantes.js            categorias, status, setores, prazos e limites (iguais às regras)
   firebase.js              Firestore + App Check (+ emuladores)
   firebaseAuth.js          login da ouvidoria (carregado só na área restrita)
   utils/                   seguranca.js, datas.js, estatisticas.js, dadosPessoais.js
   services/                denuncias.js, transparencia.js (todo acesso ao Firestore)
-  hooks/                   useOuvidor, useEstatisticas, useTitulo
-  components/              Cabecalho, FaixaEmergencia, SaidaRapida, LinhaDoTempo, Conversa…
+  hooks/                   useOuvidor, useEstatisticas, usePreferencias, useTitulo,
+                           useContagem, useAvisoAoSair
+  components/              Cabecalho, Rodape, FaixaEmergencia, SaidaRapida, Ticket, CampoCodigo,
+                           LinhaDoTempo, PrazoAnel, Conversa, ResumoNumeros, Icones…
   pages/                   Inicio, ComoFunciona, NovaDenuncia, DenunciaEnviada, Acompanhar,
                            Transparencia, ouvidoria/ (Login, Painel, Detalhe, Mudanças)
 firestore.rules            regras de segurança (a parte mais importante)

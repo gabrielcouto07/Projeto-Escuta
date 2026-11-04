@@ -1,4 +1,3 @@
-// src/pages/ouvidoria/LayoutOuvidoria.jsx
 // Área protegida da ouvidoria. Só ouvidores entram (as regras também barram).
 // Escuta a coleção inteira em tempo real e repassa às páginas filhas.
 import { useEffect, useRef, useState } from 'react';

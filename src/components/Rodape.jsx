@@ -1,4 +1,3 @@
-// src/components/Rodape.jsx
 import { Link } from 'react-router-dom';
 import { INSTITUICAO } from '../config';
 import { usePreferencias } from '../hooks/usePreferencias';

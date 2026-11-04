@@ -1,9 +1,10 @@
-// src/pages/ouvidoria/GerenciarMudancas.jsx
 // A ouvidoria publica o que mudou na instituição a partir das denúncias.
 // Aparece na seção "O que mudou" do painel de transparência.
 import { useEffect, useState } from 'react';
+import { LIMITES } from '../../constantes';
 import { useTitulo } from '../../hooks/useTitulo';
 import { ouvirMudancas, publicarMudanca, removerMudanca } from '../../services/transparencia';
+import { separarMes } from '../../utils/datas';
 
 function mesAtual() {
   const hoje = new Date();
@@ -28,7 +29,9 @@ export default function GerenciarMudancas() {
       await publicarMudanca(mes, texto);
       setTexto('');
     } catch {
-      setErro('Não foi possível publicar. Confira o texto (10 a 280 caracteres).');
+      setErro(
+        `Não foi possível publicar. Confira o texto (${LIMITES.mudancaMin} a ${LIMITES.mudanca} caracteres).`,
+      );
     } finally {
       setSalvando(false);
     }
@@ -63,7 +66,7 @@ export default function GerenciarMudancas() {
           <input
             value={texto}
             onChange={(e) => setTexto(e.target.value)}
-            maxLength={280}
+            maxLength={LIMITES.mudanca}
             placeholder="Ex.: Iluminação e câmeras no estacionamento do Bloco C."
             required
           />
@@ -71,7 +74,7 @@ export default function GerenciarMudancas() {
         <button
           type="submit"
           className="botao botao-primario"
-          disabled={salvando || tamanho < 10 || !mes}
+          disabled={salvando || tamanho < LIMITES.mudancaMin || !mes}
         >
           Publicar
         </button>
@@ -87,15 +90,21 @@ export default function GerenciarMudancas() {
           <p className="nota">Nenhuma mudança publicada ainda.</p>
         ) : (
           <ul className="mudancas">
-            {mudancas.map((m) => (
-              <li key={m.id}>
-                <time>{m.mes}</time>
-                <span>{m.texto}</span>
-                <button type="button" className="link link-perigo" onClick={() => remover(m.id)}>
-                  Remover
-                </button>
-              </li>
-            ))}
+            {mudancas.map((m) => {
+              const r = separarMes(m.mes);
+              return (
+                <li key={m.id}>
+                  <time dateTime={m.mes}>
+                    {r.mes}
+                    <small>{r.ano}</small>
+                  </time>
+                  <span>{m.texto}</span>
+                  <button type="button" className="link link-perigo" onClick={() => remover(m.id)}>
+                    Remover
+                  </button>
+                </li>
+              );
+            })}
           </ul>
         )}
       </div>

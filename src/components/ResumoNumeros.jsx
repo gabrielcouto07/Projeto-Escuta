@@ -1,4 +1,3 @@
-// src/components/ResumoNumeros.jsx
 // Números públicos em destaque, com contador animado.
 // Recebe o documento estatisticas/publico.
 import { useContagem } from '../hooks/useContagem';

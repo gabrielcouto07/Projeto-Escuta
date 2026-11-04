@@ -1,4 +1,3 @@
-// src/pages/Inicio.jsx
 // Tela 1: passar confiança em poucos segundos e levar ao formulário.
 // Lê só estatisticas/publico. Nenhuma denúncia é lida aqui.
 import { Link } from 'react-router-dom';
@@ -7,9 +6,22 @@ import OndaSonora from '../components/OndaSonora';
 import ResumoNumeros from '../components/ResumoNumeros';
 import Ticket from '../components/Ticket';
 import { INSTITUICAO } from '../config';
+import { PRAZO_DIAS } from '../constantes';
 import { useEstatisticas } from '../hooks/useEstatisticas';
 import { useTitulo } from '../hooks/useTitulo';
-import { formatarData } from '../utils/datas';
+import { formatarData, somarDias } from '../utils/datas';
+
+// Comprovante de exemplo da capa, sempre com datas recentes
+const EXEMPLO_RECEBIDA = new Date();
+EXEMPLO_RECEBIDA.setDate(EXEMPLO_RECEBIDA.getDate() - 3);
+EXEMPLO_RECEBIDA.setHours(19, 12, 0, 0);
+const EXEMPLO = {
+  protocolo: `ESC-${EXEMPLO_RECEBIDA.getFullYear()}-0213`,
+  codigo: '7Q4MK2XD9PRAH3WT',
+  recebidaEm: EXEMPLO_RECEBIDA,
+  prazo: somarDias(EXEMPLO_RECEBIDA, PRAZO_DIAS),
+  categoria: 'Bullying',
+};
 
 const PASSOS = [
   {
@@ -83,15 +95,7 @@ export default function Inicio() {
           </div>
 
           <div className="hero-visual">
-            <Ticket
-              exemplo
-              animar
-              protocolo="ESC-2026-0213"
-              codigo="7Q4MK2XD9PRAH3WT"
-              recebidaEm={new Date(2026, 9, 11, 19, 12)}
-              prazo={new Date(2026, 10, 10)}
-              categoria="Bullying"
-            />
+            <Ticket exemplo animar {...EXEMPLO} />
             <OndaSonora className="hero-onda" />
           </div>
         </div>

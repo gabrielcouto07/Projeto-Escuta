@@ -1,4 +1,3 @@
-// src/pages/ouvidoria/LoginOuvidoria.jsx
 // Login só para a equipe da ouvidoria. Denunciantes nunca fazem login.
 import { useState } from 'react';
 import { Navigate } from 'react-router-dom';

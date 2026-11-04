@@ -1,4 +1,3 @@
-// src/hooks/useEstatisticas.js
 import { useEffect, useState } from 'react';
 import { ouvirEstatisticas } from '../services/transparencia';
 

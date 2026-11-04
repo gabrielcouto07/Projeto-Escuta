@@ -1,5 +1,4 @@
-// tests/regras/firestore.rules.test.js
-// Testa as regras de segurança no emulador do Firestore (precisa de Java 11+).
+// Testa as regras de segurança no emulador do Firestore (precisa de Java 21+).
 // Rodar: npm run test:regras
 import { readFileSync } from 'node:fs';
 import {

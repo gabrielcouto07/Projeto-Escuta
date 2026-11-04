@@ -1,4 +1,3 @@
-// src/components/OndaSonora.jsx
 // Faixa decorativa de "ondas sonoras", o símbolo da escuta.
 // Alturas fixas (não aleatórias) para o desenho ser sempre o mesmo.
 const ALTURAS = [

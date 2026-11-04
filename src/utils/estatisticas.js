@@ -1,4 +1,3 @@
-// src/utils/estatisticas.js
 // Calcula os números do painel público. Recebe as denúncias completas,
 // devolve só contagens: nenhum texto, local ou data exata sai daqui.
 import { MINIMO_POR_CATEGORIA, STATUS_FINAIS } from '../constantes.js';

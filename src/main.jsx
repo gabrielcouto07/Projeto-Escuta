@@ -1,4 +1,3 @@
-// src/main.jsx
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 // Fontes servidas pelo próprio site (sem Google Fonts: nenhum pedido a terceiros)

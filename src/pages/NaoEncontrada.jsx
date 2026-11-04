@@ -1,4 +1,3 @@
-// src/pages/NaoEncontrada.jsx
 import { Link } from 'react-router-dom';
 import { useTitulo } from '../hooks/useTitulo';
 

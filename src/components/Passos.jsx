@@ -1,4 +1,3 @@
-// src/components/Passos.jsx
 // Indicador "1 O que aconteceu · 2 Detalhes · 3 Revisar e enviar"
 export default function Passos({ etapas, atual }) {
   return (

@@ -1,4 +1,3 @@
-// src/firebaseAuth.js
 // Login da equipe da ouvidoria. Quem denuncia nunca baixa este arquivo.
 import {
   browserSessionPersistence,

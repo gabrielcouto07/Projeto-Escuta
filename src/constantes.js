@@ -1,4 +1,3 @@
-// src/constantes.js
 // Valores fixos do domínio. Este arquivo não depende do Vite nem do Firebase,
 // então também é usado pelo script de dados de exemplo e pelos testes.
 // ATENÇÃO: categorias, status e setores também aparecem em firestore.rules.
@@ -16,6 +15,8 @@ export const LIMITES = {
   mensagem: 2000,
   observacaoMin: 10,
   observacao: 2000,
+  mudancaMin: 10,
+  mudanca: 280,
 };
 
 export const CATEGORIAS = [

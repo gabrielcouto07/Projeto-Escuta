@@ -1,4 +1,3 @@
-// src/components/LinhaDoTempo.jsx
 // Mostra em que etapa a denúncia está, com datas e observações da ouvidoria.
 import { formatarData, formatarDataHora } from '../utils/datas';
 

@@ -1,4 +1,3 @@
-// tests/unidade/utils.test.js
 // Rodar: npm test
 import { describe, expect, it } from 'vitest';
 import { encontrarDadosPessoais } from '../../src/utils/dadosPessoais.js';

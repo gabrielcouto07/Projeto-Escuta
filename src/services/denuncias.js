@@ -1,4 +1,3 @@
-// src/services/denuncias.js
 // Todas as leituras e gravações de denúncias passam por aqui.
 import {
   collection,

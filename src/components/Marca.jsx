@@ -1,4 +1,3 @@
-// src/components/Marca.jsx
 import { Link } from 'react-router-dom';
 import { IconeLogo } from './Icones';
 

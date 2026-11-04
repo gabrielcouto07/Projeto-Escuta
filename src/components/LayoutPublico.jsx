@@ -1,4 +1,3 @@
-// src/components/LayoutPublico.jsx
 // Moldura das páginas públicas: cabeçalho, faixa de emergência, saída rápida.
 import { useEffect, useRef } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
@@ -9,23 +8,21 @@ import Rodape from './Rodape';
 import SaidaRapida from './SaidaRapida';
 
 export default function LayoutPublico() {
-  const { pathname, hash } = useLocation();
+  const { pathname, hash, key } = useLocation();
   const principal = useRef(null);
-  const primeiraVez = useRef(true);
+  const chaveTratada = useRef(key);
 
   // Ao trocar de página: volta ao topo e leva o foco ao conteúdo (leitores de tela)
   useEffect(() => {
-    if (primeiraVez.current) {
-      primeiraVez.current = false;
-      return;
-    }
+    if (chaveTratada.current === key) return;
+    chaveTratada.current = key;
     if (hash) {
       document.getElementById(hash.slice(1))?.scrollIntoView();
       return;
     }
     window.scrollTo(0, 0);
     principal.current?.focus({ preventScroll: true });
-  }, [pathname, hash]);
+  }, [pathname, hash, key]);
 
   return (
     <>

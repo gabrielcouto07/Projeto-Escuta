@@ -1,7 +1,6 @@
-// src/utils/seguranca.js
 // Gera o código secreto de acompanhamento.
 // Sem 0, O, 1, I e L para ninguém confundir letras e números ao digitar.
-const ALFABETO = '23456789ABCDEFGHJKMNPQRSTUVWXYZ'; // 31 símbolos
+export const ALFABETO = '23456789ABCDEFGHJKMNPQRSTUVWXYZ'; // 31 símbolos
 export const TAMANHO_CODIGO = 16; // 16 × log2(31) ≈ 79 bits
 
 // Maior múltiplo de 31 que cabe num byte (248). Bytes acima disso são
