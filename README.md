@@ -183,3 +183,7 @@ docs/telas/                capturas de tela usadas neste README
 | `/ouvidoria/mudancas` | O que mudou | Só ouvidores |
 
 _Escuta e Faculdade Exemplo são nomes provisórios._
+
+## Licença
+
+Este projeto está disponível sob a [licença MIT](LICENSE).
