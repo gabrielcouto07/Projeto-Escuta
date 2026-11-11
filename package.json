@@ -4,10 +4,14 @@
   "version": "1.0.0",
   "description": "Ouvidoria digital com denúncias anônimas para escolas e faculdades (ODS 16).",
   "type": "module",
+  "engines": {
+    "node": "^22.13.0 || >=24"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
+    "lint": "eslint .",
     "emuladores": "npx firebase-tools emulators:start --project demo-escuta",
     "seed": "node scripts/seed.mjs",
     "test": "vitest run tests/unidade",
@@ -24,9 +28,14 @@
     "react-router-dom": "^7.18.4"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@firebase/rules-unit-testing": "^6.0.0",
     "@vitejs/plugin-react": "^6.1.2",
+    "eslint": "^10.14.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.7",
     "firebase-admin": "^14.5.0",
+    "globals": "^17.14.0",
     "vite": "^8.3.4",
     "vitest": "^5.0.5"
   }

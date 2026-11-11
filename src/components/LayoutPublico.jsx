@@ -30,7 +30,7 @@ export default function LayoutPublico() {
         Pular para o conteúdo
       </a>
       <FaixaEmergencia />
-      <Cabecalho />
+      <Cabecalho key={pathname} />
       <SaidaRapida />
       {!firebaseConfigurado && (
         <div className="largura">

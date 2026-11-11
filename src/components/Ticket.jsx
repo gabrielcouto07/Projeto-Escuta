@@ -6,13 +6,10 @@ import { ALFABETO, formatarCodigo } from '../utils/seguranca';
 
 // Efeito "sorteio": as letras giram e vão se fixando da esquerda para a direita
 function useCodigoEmbaralhado(codigo, ativo) {
-  const [texto, setTexto] = useState(ativo ? '' : codigo);
+  const [texto, setTexto] = useState('');
 
   useEffect(() => {
-    if (!ativo || window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) {
-      setTexto(codigo);
-      return undefined;
-    }
+    if (!ativo || window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return undefined;
     let quadro = 0;
     const timer = setInterval(() => {
       quadro += 1;

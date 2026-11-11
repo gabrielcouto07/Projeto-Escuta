@@ -17,8 +17,6 @@ export default function Cabecalho() {
     return () => window.removeEventListener('scroll', aoRolar);
   }, []);
 
-  useEffect(() => setMenuAberto(false), [pathname]);
-
   return (
     <header className={rolou ? 'cabecalho rolou' : 'cabecalho'}>
       <div className="cabecalho-interno">
@@ -37,6 +35,7 @@ export default function Cabecalho() {
           id="nav-principal"
           aria-label="Principal"
           className={menuAberto ? 'nav-principal aberto' : 'nav-principal'}
+          onClick={() => setMenuAberto(false)}
         >
           <NavLink to="/como-funciona">Como funciona</NavLink>
           <NavLink to="/acompanhar">Acompanhar</NavLink>
