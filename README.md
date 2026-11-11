@@ -1,5 +1,7 @@
 # Escuta · Ouvidoria digital anônima
 
+[![CI](https://github.com/gabrielcouto07/Projeto-Escuta/actions/workflows/ci.yml/badge.svg)](https://github.com/gabrielcouto07/Projeto-Escuta/actions/workflows/ci.yml)
+
 Site em React para denúncias anônimas em escolas e faculdades. Quem viu ou sofreu bullying,
 assédio, discriminação ou uma irregularidade relata sem se identificar e acompanha a resposta
 com um código secreto. A instituição presta contas num painel público.
@@ -7,16 +9,26 @@ com um código secreto. A instituição presta contas num painel público.
 **ODS 16 · Paz, Justiça e Instituições Eficazes** (metas 16.1, 16.6 e 16.10)
 Trabalho A3 · Usabilidade, Desenvolvimento Web, Mobile e Jogos
 
-Site publicado: <https://gabrielcouto07.github.io/Projeto-Escuta/>
+Site publicado: <https://projetoescuta.vercel.app>
+
+![Tela inicial do Escuta](docs/telas/inicio.png)
+
+| Denunciar em três passos | Acompanhar com o código |
+| --- | --- |
+| ![Formulário de denúncia com detector de dados pessoais](docs/telas/denunciar.png) | ![Linha do tempo e conversa anônima](docs/telas/acompanhar.png) |
+
+| Fila da ouvidoria | Painel de transparência |
+| --- | --- |
+| ![Fila de denúncias ordenada por urgência e prazo](docs/telas/ouvidoria.png) | ![Números públicos, gráfico mensal e mudanças](docs/telas/transparencia.png) |
 
 ## Tecnologias
 
 React 19 + Vite · React Router · Firebase (Authentication, Cloud Firestore + Security Rules,
-App Check com reCAPTCHA v3, Hosting) · Vitest + Firebase Emulator para testes.
+App Check com reCAPTCHA v3) · Vercel · Vitest + Firebase Emulator para testes · ESLint · GitHub Actions.
 
 ## Rodar localmente sem conta no Firebase (emuladores)
 
-Precisa de Node.js 20+ e **Java 21+** (os emuladores do Firebase rodam em Java).
+Precisa de Node.js 22.13+ (linha 22) ou 24+ e **Java 21+** (os emuladores do Firebase rodam em Java).
 
 ```bash
 npm install
@@ -42,37 +54,40 @@ ouvidoria: `ouvidoria@escuta.dev` / `escuta123`.
 3. **Firestore Database** → crie o banco (**não** use o "modo de teste") e crie à mão o documento
    `ouvidores/{UID}` com `nome: "Ouvidoria"`. O contador de protocolos é criado sozinho no
    primeiro envio.
-4. Publique as regras e o site:
+4. Publique as regras do Firestore:
    ```bash
    npx firebase-tools login
    npx firebase-tools use --add      # escolha o projeto
-   npm run deploy                    # build + hosting + regras do Firestore
+   npx firebase-tools deploy --only firestore:rules
    ```
-5. (Feedback 2) **App Check**: registre o reCAPTCHA v3, cole a chave em
+5. Publique o site seguindo a seção **Publicar na Vercel** abaixo.
+6. (Feedback 2) **App Check**: registre o reCAPTCHA v3, cole a chave em
    `VITE_RECAPTCHA_SITE_KEY`, publique e, depois de testar, ative a aplicação obrigatória
    (enforcement) para o Firestore no console.
 
 Dados de exemplo no projeto real (opcional, apaga denúncias existentes):
 `GOOGLE_APPLICATION_CREDENTIALS=chave.json node scripts/seed.mjs --real <projectId>`.
 
-### Publicar no GitHub Pages
+### Publicar na Vercel
 
-O workflow `.github/workflows/deploy.yml` faz o build a cada push na `main` e publica a pasta
-`dist` em `https://<usuario>.github.io/<repositorio>/`. O caminho base vem da variável
-`BASE_PATH` (o workflow usa o nome do repositório); no dev e no Firebase Hosting continua `/`.
+O site publicado roda na Vercel, que faz o build a cada push na `main`. O `vercel.json`
+devolve o `index.html` para qualquer rota (sem isso, abrir `/acompanhar` direto dá 404) e
+aplica cabeçalhos de privacidade, proteção contra frames e detecção de tipo de conteúdo.
 
-1. No GitHub, **Settings → Pages → Source**: escolha **GitHub Actions** (não "Deploy from a branch").
-2. Em **Settings → Secrets and variables → Actions**, crie os secrets `VITE_FIREBASE_API_KEY`,
+1. Na Vercel, **Settings → Environment Variables**, crie `VITE_FIREBASE_API_KEY`,
    `VITE_FIREBASE_AUTH_DOMAIN`, `VITE_FIREBASE_PROJECT_ID`, `VITE_FIREBASE_STORAGE_BUCKET`,
    `VITE_FIREBASE_MESSAGING_SENDER_ID` e `VITE_FIREBASE_APP_ID` com os valores do app Web.
-   Opcionais: `VITE_RECAPTCHA_SITE_KEY` (secret) e `VITE_INSTITUICAO` (variable).
-   Sem os secrets o site abre, mas com o aviso de "não configurado".
-3. No console do Firebase, **Authentication → Settings → Authorized domains**, adicione
-   `<usuario>.github.io` para o login da ouvidoria funcionar.
+   Defina também `VITE_USE_EMULATORS=false`. Opcionais: `VITE_INSTITUICAO` e `VITE_RECAPTCHA_SITE_KEY`.
+2. Faça um **Redeploy**: as variáveis `VITE_*` entram no build, não valem para um build antigo.
+   Sem elas o site abre, mas com o aviso de "não configurado".
+3. Publique as regras no projeto do Firebase: `npx firebase-tools deploy --only firestore:rules`.
+4. No console do Firebase, **Authentication → Settings → Authorized domains**, adicione
+   `projetoescuta.vercel.app`.
 
 ## Testes
 
 ```bash
+npm run lint            # ESLint (regras do React e dos hooks)
 npm test                # lógica pura: código secreto, detector de dados pessoais, estatísticas
 npm run test:regras     # regras de segurança + fluxo completo no emulador (precisa de Java)
 ```
@@ -81,6 +96,22 @@ npm run test:regras     # regras de segurança + fluxo completo no emulador (pre
 denúncias dá `permission-denied`; com o código, a denúncia abre. São 35 testes, entre eles:
 ninguém forja protocolo, inventa campos (IP, nome), muda status sem ser ouvidor, se passa pela
 ouvidoria na conversa, reescreve o histórico ou prorroga o prazo duas vezes.
+
+O workflow `.github/workflows/ci.yml` roda lint, testes, build e os testes de regras a cada push.
+
+### Estado da entrega (11/11/2026)
+
+A demonstração local usa emuladores. Para receber relatos reais, configure o Firebase na
+Vercel, publique as regras e valide envio, acompanhamento e login no endereço publicado.
+Os testes unitários incluem dois casos de validação de mês (10 testes ao todo).
+
+O `npm audit` ainda aponta 14 avisos (5 altos e 9 moderados) após atualizações compatíveis.
+Incluem dependências transitivas de Firebase e ferramentas de desenvolvimento; não use
+`npm audit fix --force` sem revisar as mudanças de versão e repetir os testes.
+As estatísticas são recalculadas enquanto a ouvidoria está aberta. As regras limitam os
+campos do documento público, mas ainda não validam todos os valores internos dos mapas.
+O App Check depende de configuração e aplicação obrigatória no console; não há limite de
+envios por pessoa implementado. Esses pontos precisam de revisão antes de uso institucional.
 
 ## Como o anonimato é garantido
 
@@ -132,8 +163,10 @@ src/
   pages/                   Inicio, ComoFunciona, NovaDenuncia, DenunciaEnviada, Acompanhar,
                            Transparencia, ouvidoria/ (Login, Painel, Detalhe, Mudanças)
 firestore.rules            regras de segurança (a parte mais importante)
+vercel.json                rotas da SPA e cabeçalhos de segurança no site publicado
 scripts/seed.mjs           dados de exemplo
 tests/                     unidade/ e regras/
+docs/telas/                capturas de tela usadas neste README
 ```
 
 | Rota | Página | Acesso |
