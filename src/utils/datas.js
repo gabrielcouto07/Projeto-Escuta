@@ -50,6 +50,10 @@ export function formatarCurto(valor) {
 }
 
 // "2026-09" -> { mes: 'set', ano: '2026' }
+export function mesValido(valor) {
+  return typeof valor === 'string' && /^[0-9]{4}-(0[1-9]|1[0-2])$/.test(valor);
+}
+
 export function separarMes(valor) {
   const [ano, numero] = valor.split('-');
   return { mes: MESES[Number(numero) - 1], ano };

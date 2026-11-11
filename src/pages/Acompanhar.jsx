@@ -52,6 +52,8 @@ export default function Acompanhar() {
       () => {
         setCarregando(false);
         setCodigo(null);
+        setDenuncia(null);
+        setMensagens([]);
         setErro('Não foi possível abrir agora. Verifique a conexão e tente de novo.');
       },
     );

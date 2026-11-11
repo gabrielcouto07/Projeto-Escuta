@@ -2,13 +2,27 @@
 import { describe, expect, it } from 'vitest';
 import { encontrarDadosPessoais } from '../../src/utils/dadosPessoais.js';
 import { calcularEstatisticas } from '../../src/utils/estatisticas.js';
-import { UM_DIA } from '../../src/utils/datas.js';
+import { mesValido, UM_DIA } from '../../src/utils/datas.js';
 import {
   codigoValido,
   formatarCodigo,
   gerarCodigo,
   limparCodigo,
 } from '../../src/utils/seguranca.js';
+
+describe('mês de uma mudança', () => {
+  it('aceita todos os meses no formato AAAA-MM', () => {
+    for (let mes = 1; mes <= 12; mes += 1) {
+      expect(mesValido(`2026-${String(mes).padStart(2, '0')}`)).toBe(true);
+    }
+  });
+
+  it('recusa texto livre, meses inexistentes e formatos incompletos', () => {
+    for (const valor of ['dddd-09', '2026-00', '2026-13', '2026-9', '09/2026', '', null]) {
+      expect(mesValido(valor)).toBe(false);
+    }
+  });
+});
 
 describe('código secreto', () => {
   it('tem 16 caracteres do alfabeto sem 0, O, 1, I e L', () => {

@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { LIMITES } from '../../constantes';
 import { useTitulo } from '../../hooks/useTitulo';
 import { ouvirMudancas, publicarMudanca, removerMudanca } from '../../services/transparencia';
-import { separarMes } from '../../utils/datas';
+import { mesValido, separarMes } from '../../utils/datas';
 
 function mesAtual() {
   const hoje = new Date();
@@ -23,6 +23,11 @@ export default function GerenciarMudancas() {
 
   async function publicar(evento) {
     evento.preventDefault();
+    // Firefox no computador mostra type="month" como texto livre
+    if (!mesValido(mes)) {
+      setErro('Informe o mês no formato AAAA-MM, por exemplo 2026-09.');
+      return;
+    }
     setSalvando(true);
     setErro('');
     try {
@@ -59,7 +64,13 @@ export default function GerenciarMudancas() {
       <form className="caixa form-mudanca" onSubmit={publicar}>
         <label className="campo">
           Mês
-          <input type="month" value={mes} onChange={(e) => setMes(e.target.value)} required />
+          <input
+            type="month"
+            value={mes}
+            onChange={(e) => setMes(e.target.value)}
+            placeholder="AAAA-MM"
+            required
+          />
         </label>
         <label className="campo campo-largo">
           O que mudou
